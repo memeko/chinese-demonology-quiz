@@ -1,7 +1,7 @@
 const questions = [
   { q: "Как можно визуально отличить призрака-пособника чангуя от обычного человека, согласно народным поверьям?", a: ["По вертикальным зрачкам и раздвоенному языку.", "По отсутствию мизинца на левой руке у мужчин или на правой у женщин.", "По наличию густого волосяного покрова на ладонях и стопах.", "По постоянно влажной одежде, с которой стекает речная вода."], correct: 1 },
   { q: "Какое необычное изменение происходит с душой чангуя, если убить тигра, в рабстве у которого она находилась?", a: ["Душа немедленно возносится на Небеса и обретает покой.", "Душа превращается в синий камень размером с яйцо в горле зверя.", "Дух становится свободным бродячим призраком гухунем.", "Чангуй сам превращается в молодого тигра, занимая место убитого."], correct: 1 },
-  { q: "Какой предмет обихода, согласно источнику, является эффективным средством против цзянши, так как они одержимы счетом?", a: ["Горсть риса.", "Рыболовная сеть.", "Счеты (суаньпань).", "Связка медных монет."], correct: 0 },
+  { q: "Какой предмет обихода является эффективным средством против цзянши, так как они одержимы счетом?", a: ["Горсть риса.", "Рыболовная сеть.", "Счеты (суаньпань).", "Связка медных монет."], correct: 0 },
   { q: "Как, согласно «Иллюстрированному каталогу демонов Байцзэ», ведет себя столетний волк-оборотень под видом красавицы чжинюй?", a: ["Выходит замуж за мужчину и съедает его через три года.", "Крадет детей из колыбелей, заменяя их волчатами.", "Заманивает путников в пещеру, обещая показать сокровища.", "Обесцвечивает волосы жертвы одним лишь взглядом."], correct: 0 },
   { q: "Что является отличительной чертой внешности демонического зверя цюнци, одного из «четырех зол»?", a: ["Лицо человека и тело змеи с девятью головами.", "Одна нога, вывернутая назад.", "Голова кабана на теле овцы.", "Тело тигра с крыльями."], correct: 3 },
   { q: "Где находятся глаза у демонического зверя таоте, олицетворяющего жадность и обжорство?", a: ["Под мышками.", "Внутри пасти.", "На затылке.", "На ладонях рук."], correct: 0 },
@@ -102,7 +102,7 @@ function renderQuestion() {
     button.className = "answer";
     button.type = "button";
     button.innerHTML = `<span class="answer-letter">${String.fromCharCode(65 + index)}</span><span class="answer-text"></span>`;
-    button.querySelector(".answer-text").textContent = answer.text;
+    button.querySelector(".answer-text").textContent = answer.text.replace(/[.。]+$/u, "");
     button.addEventListener("click", () => chooseAnswer(button, answer.isCorrect));
     answers.append(button);
   });
@@ -136,7 +136,7 @@ function nextQuestion() {
   setTimeout(() => { current += 1; renderQuestion(); window.scrollTo({ top: 0, behavior: "smooth" }); }, 190);
 }
 
-function getResult(percent) {
+function getClassicResult(percent) {
   if (percent <= 20) return "Поздравляем! Вы не выжили... Впрочем, если мы с вами всё ещё разговариваем, теперь бояться нужно уже вас, не так ли?";
   if (percent <= 50) return "Вас каким-то чудом нашёл странствующий даос и спас. Вы, это, поаккуратней, пожалуйста...";
   if (percent <= 70) return "О, так перед нами адепт школы заклинателей! Желаем успехов в обучении вам и терпения вашему наставнику!";
@@ -144,11 +144,20 @@ function getResult(percent) {
   return "Учитель, это вы?";
 }
 
+function getExamResult(percent) {
+  if (percent <= 20) return "Вы точно проходили обучение? Рекомендуем вам найти школу...";
+  if (percent <= 50) return "Вы знаете толк в вине, увеселительных заведениях, садах и прочем. Жаль, что наставника вы часто не слушали...";
+  if (percent <= 70) return "Вы сдали, теперь вы официально заклинатель, а не просто адепт. Поздравляем! Результат мог быть и выше, но комиссия всё равно довольно вами.";
+  if (percent <= 90) return "Ваш результат порадовал комиссию. Поздравляем, вы официально признаны заклинателем. Кстати, не хотите остаться преподавать?";
+  return "Вы либо гений, либо замаскировавшийся учитель...Признавайтесь.";
+}
+
 function showResult() {
   const percent = Math.round((score / deck.length) * 100);
   $("#result-percent").textContent = `${percent}%`;
   $("#result-count").textContent = `${score} из ${deck.length}`;
-  $("#result-message").textContent = getResult(percent);
+  $("#result-message").textContent = activeMode === "exam" ? getExamResult(percent) : getClassicResult(percent);
+  $("#result-overline").textContent = activeMode === "exam" ? "Экзамен завершён" : "Испытание завершено";
   $("#result-seal").textContent = percent > 90 ? "师" : percent > 50 ? "成" : "命";
   showScreen($("#result-screen"));
   if (window.Telegram?.WebApp?.initData) {
@@ -161,7 +170,7 @@ $("#restart-button").addEventListener("click", () => startQuiz(activeMode));
 $("#next-button").addEventListener("click", nextQuestion);
 $("#exit-button").addEventListener("click", () => showScreen($("#start-screen")));
 
-if (window.Telegram?.WebApp) {
+if (window.Telegram?.WebApp?.initData) {
   window.Telegram.WebApp.ready();
   window.Telegram.WebApp.expand();
   window.Telegram.WebApp.setHeaderColor("#0a0d0d");

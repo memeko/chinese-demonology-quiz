@@ -48,6 +48,7 @@ body::before {
 .screen.is-active { display: flex; animation: screen-in .5s cubic-bezier(.2,.8,.2,1) both; }
 
 .start-screen, .result-screen { flex-direction: column; justify-content: center; align-items: flex-start; }
+.start-screen { justify-content: flex-start; padding-top: clamp(22px, 5vh, 48px); }
 .start-screen::after {
   content: "山";
   position: fixed;
@@ -56,6 +57,15 @@ body::before {
   z-index: -1;
   color: rgba(233, 224, 208, .025);
   font: 700 340px/1 "PT Serif", serif;
+}
+.cover-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(180deg, rgba(6, 10, 12, .52) 0%, rgba(6, 9, 10, .92) 62%, #080b0b 100%),
+    url("assets/demonology-cover.jpg") center top / cover no-repeat;
+  opacity: .64;
 }
 
 .seal {
@@ -75,8 +85,23 @@ body::before {
 .overline { margin: 0 0 13px; color: var(--cinnabar-bright); font-size: 12px; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; }
 h1, h2 { font-family: "PT Serif", Georgia, serif; }
 h1 { margin: 0; max-width: 540px; font-size: clamp(43px, 12vw, 69px); line-height: .98; letter-spacing: -.035em; }
-.intro { max-width: 480px; margin: 28px 0 38px; color: var(--muted); font-size: 16px; line-height: 1.65; }
-.fine-print { align-self: center; margin: 18px 12px 0; color: #777a75; font-size: 11px; line-height: 1.5; text-align: center; }
+.book-visual {
+  position: relative;
+  width: min(100%, 430px);
+  aspect-ratio: 1.54;
+  margin: 28px auto 22px;
+  border: 1px solid rgba(233, 224, 208, .3);
+  border-radius: 3px 9px 9px 3px;
+  background: #151819;
+  box-shadow: -10px 13px 0 #080909, -12px 15px 0 rgba(229, 75, 63, .35), 0 28px 60px rgba(0,0,0,.5);
+  transform: perspective(900px) rotateY(-5deg) rotateX(1deg);
+  overflow: hidden;
+}
+.book-visual::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 5%; background: linear-gradient(90deg, rgba(0,0,0,.7), rgba(255,255,255,.08), transparent); }
+.book-visual img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.source-copy { max-width: 520px; margin: 0 0 24px; color: #cbc5ba; font: 400 14px/1.55 "PT Serif", serif; }
+.fine-print { align-self: center; margin: 16px 12px 0; color: #8a8b85; font-size: 11px; line-height: 1.5; text-align: center; }
+.credits { align-self: center; margin: 20px 0 2px; color: var(--paper); font: 400 12px/1.4 "PT Serif", serif; opacity: .72; }
 .mode-list { display: grid; width: 100%; gap: 10px; }
 .mode-button {
   display: flex;
