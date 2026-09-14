@@ -72,7 +72,7 @@ function haptic(type = "light") {
 function startQuiz(mode = activeMode) {
   activeMode = typeof mode === "string" ? mode : activeMode;
   deck = activeMode === "exam"
-    ? shuffle([...questions, ...examQuestions]).slice(0, 50).map((item) => ({ ...item, answers: shuffle(item.a.map((text, index) => ({ text, isCorrect: index === item.correct }))) }))
+    ? shuffle([...questions.slice(0, 32), ...examQuestions]).slice(0, 50).map((item) => ({ ...item, answers: shuffle(item.a.map((text, index) => ({ text, isCorrect: index === item.correct }))) }))
     : prepareDeck();
   current = 0;
   score = 0;
