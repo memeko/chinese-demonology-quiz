@@ -22,8 +22,11 @@
         <p class="overline">Тридцать три испытания</p>
         <h1 id="start-title">Тест по<br />демонологии Китая</h1>
         <p class="intro">Проверьте, отличите ли вы чангуя от прохожего и переживёте ли встречу с цзянши.</p>
-        <button id="start-button" class="primary-button" type="button">Начать испытание <span aria-hidden="true">→</span></button>
-        <p class="fine-print">Вопросы и ответы перемешиваются при каждом прохождении.</p>
+        <div class="mode-list" aria-label="Выберите режим">
+          <button class="mode-button" data-mode="classic" type="button"><span><strong>Обычный тест</strong><small>Все 33 исходных вопроса</small></span><span aria-hidden="true">→</span></button>
+          <button class="mode-button mode-button-exam" data-mode="exam" type="button"><span><strong>Экзамен на заклинателя</strong><small>50 случайных вопросов из общей базы</small></span><span aria-hidden="true">→</span></button>
+        </div>
+        <p class="fine-print">Порядок заданий и вариантов меняется при каждом прохождении.</p>
       </section>
 
       <section id="quiz-screen" class="screen quiz-screen" aria-labelledby="question-text">
@@ -54,6 +57,7 @@
         <button id="restart-button" class="primary-button" type="button">Пройти ещё раз <span aria-hidden="true">↻</span></button>
       </section>
     </main>
+    <script src="exam-questions.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

@@ -40,6 +40,7 @@ let deck = [];
 let current = 0;
 let score = 0;
 let answered = false;
+let activeMode = "classic";
 
 function shuffle(items) {
   const result = [...items];
@@ -68,8 +69,11 @@ function haptic(type = "light") {
   }
 }
 
-function startQuiz() {
-  deck = prepareDeck();
+function startQuiz(mode = activeMode) {
+  activeMode = typeof mode === "string" ? mode : activeMode;
+  deck = activeMode === "exam"
+    ? shuffle([...questions, ...examQuestions]).slice(0, 50).map((item) => ({ ...item, answers: shuffle(item.a.map((text, index) => ({ text, isCorrect: index === item.correct }))) }))
+    : prepareDeck();
   current = 0;
   score = 0;
   $("#total-number").textContent = deck.length;
@@ -152,8 +156,8 @@ function showResult() {
   }
 }
 
-$("#start-button").addEventListener("click", startQuiz);
-$("#restart-button").addEventListener("click", startQuiz);
+document.querySelectorAll("[data-mode]").forEach((button) => button.addEventListener("click", () => startQuiz(button.dataset.mode)));
+$("#restart-button").addEventListener("click", () => startQuiz(activeMode));
 $("#next-button").addEventListener("click", nextQuestion);
 $("#exit-button").addEventListener("click", () => showScreen($("#start-screen")));
 

@@ -77,6 +77,29 @@ h1, h2 { font-family: "PT Serif", Georgia, serif; }
 h1 { margin: 0; max-width: 540px; font-size: clamp(43px, 12vw, 69px); line-height: .98; letter-spacing: -.035em; }
 .intro { max-width: 480px; margin: 28px 0 38px; color: var(--muted); font-size: 16px; line-height: 1.65; }
 .fine-print { align-self: center; margin: 18px 12px 0; color: #777a75; font-size: 11px; line-height: 1.5; text-align: center; }
+.mode-list { display: grid; width: 100%; gap: 10px; }
+.mode-button {
+  display: flex;
+  width: 100%;
+  min-height: 72px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 13px 18px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--paper);
+  background: rgba(13, 17, 17, .74);
+  text-align: left;
+  cursor: pointer;
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+.mode-button strong, .mode-button small { display: block; }
+.mode-button strong { font: 700 17px/1.3 "PT Serif", serif; }
+.mode-button small { margin-top: 5px; color: var(--muted); font-size: 11px; }
+.mode-button > span:last-child { color: var(--cinnabar-bright); font-size: 22px; }
+.mode-button:active { transform: scale(.985); }
+.mode-button-exam { border-color: rgba(229, 75, 63, .62); background: linear-gradient(115deg, rgba(104,24,20,.58), rgba(32,20,19,.72)); }
 
 button { font: inherit; }
 .primary-button {
