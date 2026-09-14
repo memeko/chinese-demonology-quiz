@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0d0d" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Тест по демонологии Китая — 33 вопроса о духах, оборотнях и способах пережить встречу с ними." />
+    <title>Тест по демонологии Китая</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  </head>
+  <body>
+    <div class="mist mist-one" aria-hidden="true"></div>
+    <div class="mist mist-two" aria-hidden="true"></div>
+    <main class="app-shell">
+      <section id="start-screen" class="screen start-screen is-active" aria-labelledby="start-title">
+        <div class="seal" aria-hidden="true">鬼</div>
+        <p class="overline">Тридцать три испытания</p>
+        <h1 id="start-title">Тест по<br />демонологии Китая</h1>
+        <p class="intro">Проверьте, отличите ли вы чангуя от прохожего и переживёте ли встречу с цзянши.</p>
+        <button id="start-button" class="primary-button" type="button">Начать испытание <span aria-hidden="true">→</span></button>
+        <p class="fine-print">Вопросы и ответы перемешиваются при каждом прохождении.</p>
+      </section>
+
+      <section id="quiz-screen" class="screen quiz-screen" aria-labelledby="question-text">
+        <header class="quiz-header">
+          <button id="exit-button" class="icon-button" type="button" aria-label="Выйти в начало">×</button>
+          <div class="progress-copy"><span id="current-number">1</span> / <span id="total-number">33</span></div>
+          <div class="score-live"><span id="score-number">0</span> верно</div>
+        </header>
+        <div class="progress-track" aria-hidden="true"><div id="progress-bar" class="progress-bar"></div></div>
+
+        <div id="question-stage" class="question-stage">
+          <h2 id="question-text"></h2>
+          <div id="answers" class="answers" role="group" aria-label="Варианты ответа"></div>
+          <details id="comment-box" class="comment-box">
+            <summary>Комментарий <span aria-hidden="true">⌄</span></summary>
+            <p id="comment-text"></p>
+          </details>
+        </div>
+        <button id="next-button" class="primary-button next-button" type="button" disabled>Далее <span aria-hidden="true">→</span></button>
+      </section>
+
+      <section id="result-screen" class="screen result-screen" aria-labelledby="result-title">
+        <div id="result-seal" class="seal result-seal" aria-hidden="true">成</div>
+        <p class="overline">Испытание завершено</p>
+        <h2 id="result-title">Ваш результат</h2>
+        <div class="result-score"><strong id="result-percent">0%</strong><span id="result-count">0 из 33</span></div>
+        <p id="result-message" class="result-message"></p>
+        <button id="restart-button" class="primary-button" type="button">Пройти ещё раз <span aria-hidden="true">↻</span></button>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
